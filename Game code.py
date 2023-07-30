@@ -31,52 +31,54 @@ purple = (128,0,128)
 
 class GameEntity:
 
-  def __init__(self, color):
+  def __init__(self, color,x_position,y_position):
     self.color = color
+    self.x_position = x_position
+    self.y_position = y_position
 
 #want to make the player a different shape than the area so I made it a circle, I added x and y position to the player class
 class Player(GameEntity):
 
-  def __init__(self, color, radius,x_position,y_position,vel):
-    super().__init__(color)
+  def __init__(self, color, radius,x_position,y_position,oldx_position,oldy_position,vel):
+    super().__init__(color,x_position,y_position)
     self.radius = radius
-    self.x_position = x_position
-    self.y_position = y_position
+    self.oldx_position = oldx_position
+    self.oldy_position = oldy_position
     self.vel = vel
     
 
 
 class Wall(GameEntity):
 
-  def __init__(self, color,):
-    super().__init__(color)
+  def __init__(self, color,x_position,y_position):
+    super().__init__(color,x_position,y_position)
 
 class Door(Wall):
-  def __init__(sef,color):
-    super().__init__(color)
+  def __init__(sef,color,x_position,y_position):
+    super().__init__(color,x_position,y_position)
 
 
 class Exit(GameEntity):
 
-  def __init__(self, color):
-    super().__init__(color)
+  def __init__(self, color,x_position,y_position):
+    super().__init__(color,x_position,y_position)
 
 
 class Area(GameEntity):
 
-  def __init__(self, color):
-    super().__init__(color)
+  def __init__(self, color,x_position,y_position):
+    super().__init__(color,x_position,y_position)
 
-class Key(GameEntity):
-  def __init__(self,color):
-    super().__init__(color)
+class Key(GameEntity,):
+  def __init__(self,color,x_position,y_position):
+    super().__init__(color,x_position,y_position)
 
 # Create instances
-W = Wall(black)
-E = Exit(green)
-S = Player(blue,10,0,0,5) 
-O = Area(white)
-P = Key (orange)
+W = Wall(black,0,0)
+E = Exit(green,0,0)
+S = Player(blue,10,0,0,0,0,5) 
+O = Area(white,0,0)
+P = Key (orange,0,0)
 
 #
 
@@ -147,19 +149,19 @@ def renderMaze(maze):
 
 #Player Position in each maze. Will render a movable circle 
 if renderMaze(maze1) == renderMaze(maze1):
-     S = Player(blue,10,80,80,5) 
+     S = Player(blue,10,80,80,80,80,5) 
 else: 
   pass
 if renderMaze(maze2) ==  renderMaze(maze2):
-  S = Player(blue,10,860,80,5)
+  S = Player(blue,10,860,80,860,90,5)
 else:
   pass
 if renderMaze(maze3) == renderMaze(maze3):
-  S = Player(blue,10,160,80,5)
+  S = Player(blue,10,160,80,160,80,5)
 else:
   pass
 if renderMaze(maze4) ==  renderMaze(maze4):
-  S = Player(blue,10,860,300,5)
+  S = Player(blue,10,860,300,860,300,5)
 else:
   pass
 
@@ -175,15 +177,20 @@ while running:
             print(pygame.key.name(event.key))
 
     keys = pygame.key.get_pressed()
-    
+    #the initial call of the old x and y position is to save this to memory until we encounter a wall
+    S.oldx_position = S.x_position
+    S.oldy_position = S.y_position
     S.x_position += (keys[pygame.K_d] - keys[pygame.K_a]) * vel
     S.y_position += (keys[pygame.K_s] - keys[pygame.K_w]) * vel
-
- 
-  #When the player hits the Wall
-  
-  #When the player reaches the Exit
-
+    #When the player hits the Wall this doesn't work yet either
+    distance = abs(S.x_position - W.x_position) + abs(S.y_position - W.y_position)
+    if distance <= S.radius:
+        S.x_position = S.oldx_position
+        S.y_position = S.oldy_position
+     #If the player reaches the exit this doesn't work yet
+    goal = abs(S.x_position - E.x_position) + abs(S.y_position - E.y_position)
+    if goal <= S.radius:
+      print("Congratulations! You have beat the game")
   #When the player reaches a key
 
   #When the player reaches a door
