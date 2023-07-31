@@ -41,8 +41,6 @@ def textDisplay(text):
 
 
 # Define classes
-
-
 class GameEntity:
     def __init__(self, color, x_position, y_position):
         self.color = color
@@ -162,25 +160,11 @@ maze4 = [[W, W, W ,W ,W ,W ,W ,W ,W, W, E, W, W ,W ,W],
 # to a different shape to the rest of the blocks. The player is now a circle and everything else are rectangles
 def renderMaze(maze):
     for y, row in enumerate(maze):
-        for x, block in enumerate(row):
-            if isinstance(block, Wall):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
-            elif isinstance(block, Exit):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
-            elif isinstance(block, Key):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
+      for x, block in enumerate(row):
+       pygame.draw.rect(
+        gameScreen, block.color,
+        pygame.Rect(x * block_size, y * block_size, block_size, block_size))
+                
 #define gameEndings
 def gameEnd1():
   textDisplay("You have beaten the first level! Get ready for level 2 in 5 seconds!")
@@ -248,7 +232,7 @@ while running:
 
 
     gameScreen.fill(white)  # Clears the screen.
-    renderMaze(maze1)
+    renderMaze(maze4)
     pygame.draw.circle(
         gameScreen, S.color, (int(S.x_position), int(S.y_position)), 10, 0)  # This makes the player visibly move
     pygame.display.flip()  # Update the display.
