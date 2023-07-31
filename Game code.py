@@ -215,7 +215,7 @@ def gameEnding():
     sys.exit()
 
 
-current_maze = maze3
+current_maze = maze1
 
 if current_maze == maze1:
     S = Player(blue,10,80,80,80,80,5)
