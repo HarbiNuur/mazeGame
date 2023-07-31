@@ -168,12 +168,12 @@ def renderMaze(maze):
 #define gameEndings
 def gameEnd1():
   textDisplay("Get ready for level 2 in 5 seconds!")
-  clock(5)
+  time.sleep(5)
   gameScreen.fill(white) 
   renderMaze(maze2)
 def gameEnd2():
     textDisplay("Get ready for level 2 in 5 seconds")
-    clock(5)
+    time.sleep(5)
     gameScreen.fill(white)
     renderMaze(maze4)
 def gameEnding():
