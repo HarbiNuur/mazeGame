@@ -31,7 +31,7 @@ purple = (128, 0, 128)
 
 # Displaying messages for completing the levels etc
 def textDisplay(text):
-  renderFont = pygame.font.Font("freesansbold.ttf", 50)
+  renderFont = pygame.font.Font("freesansbold.ttf", 30)
   textsc = renderFont.render(text, True, purple)
   surface, rect = textsc, textsc.get_rect()
   rect.center = ((width / 2), (height / 2))
@@ -177,8 +177,10 @@ def gameEnd2():
     gameScreen.fill(white)
     renderMaze(maze4)
 def gameEnding():
-    textDisplay("You have beaten the game! Congratulations")
-    running = False
+    textDisplay("You have beaten the game! The game will now exit")
+    time.sleep(5)
+    pygame.quit()
+    sys.exit()
 
 
 current_maze = maze1
@@ -233,6 +235,8 @@ while running:
             current_maze = maze2
             S.x_position, S.y_position = 860, 80  # Move player to starting position of maze2
         elif current_maze == maze2:
+            gameEnding()
+        elif current_maze == maze3:
             gameEnd2()
             current_maze = maze4
             S.x_position, S.y_position = 860, 300  # Move player to starting position of maze4
