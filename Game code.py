@@ -31,18 +31,16 @@ purple = (128, 0, 128)
 
 # Displaying messages for completing the levels etc
 def textDisplay(text):
-    renderFont = pygame.font.Font("arial.ttf", 50)
-    textsc = renderFont.render(text, True, purple)
-    surface, rect = textsc, textsc.get_rect()
-    rect.center = ((width / 2), (height / 2))
-    gameScreen.blit(surface, rect)
-    pygame.display.update()
-    clock.sleep(1)
+  renderFont = pygame.font.Font("freesansbold.ttf", 30)
+  textsc = renderFont.render(text, True, blue)
+  surface, rect = textsc, textsc.get_rect()
+  rect.center = ((width / 2), (height / 2))
+  gameScreen.blit(surface, rect)
+  pygame.display.update()
+  
 
 
 # Define classes
-
-
 class GameEntity:
     def __init__(self, color, x_position, y_position):
         self.color = color
@@ -77,7 +75,6 @@ class Door(Wall):
     def __init__(sef, color, x_position, y_position):
         super().__init__(color, x_position, y_position)
 
-
 class Exit(GameEntity):
     def __init__(self, color, x_position, y_position):
         super().__init__(color, x_position, y_position)
@@ -98,10 +95,10 @@ class Key(
 # Create instances
 W = Wall(black, 0, 0)
 E = Exit(green, 0, 0)
-S = Player(blue, 10, 0, 0, 0, 0, 5)
+S = Player(blue, 10, 80, 80, 80, 80, 5)
 O = Area(white, 0, 0)
 P = Key(orange, 0, 0)
-
+D = Door(purple,0,0)
 #
 
 
@@ -109,7 +106,7 @@ P = Key(orange, 0, 0)
 maze1 = [
     [W, W, W, W, W, W, W, W, W, W, W, W, W, W, W],
     [W, O, O, O, O, O, O, O, O, W, O, O, O, W, W],
-    [W, S, O, O, O, O, O, O, O, O, O, W, W, W, W],
+    [W, O, O, O, O, O, O, O, O, O, O, W, W, W, W],
     [W, O, W, W, W, W, W, W, O, W, O, O, O, O, W],
     [W, O, W, O, O, O, O, O, O, O, O, W, O, W, W],
     [W, O, W, O, W, W, W, W, O, W, W, W, W, W, W],
@@ -139,200 +136,105 @@ maze3 = [
     [W, W, O, W, W, W, W, W, O, O, W, W, O, W, W],
     [W, O, O, O, O, O, O, O, O, W, O, O, O, W, W],
     [W, W, O, W, W, W, O, W, O, W, O, W, O, W, W],
+    [W, W, O, W, W, W, O, W, O, W, O, W, D, E, W],
+    [W, W, O, W, O, O, O, W, W, O, O, W, W, W, W],
+    [W, W, W, W, O, W, O, W, O, O, W, W, O, W, W],
+    [W, W, O, P, O, W, O, O, O, W, W, W, O, W, W],
+    [W, W, W, W, W, W, W, W, W, W, W, O, O, W, W],
+]
+maze32 = [
+    [W, W, W, W, W, W, W, W, W, W, W, W, W, W, W],
+    [W, W, O, W, W, O, O, O, O, O, O, O, O, O, W],
+    [W, W, O, W, W, W, W, W, O, O, W, W, O, W, W],
+    [W, O, O, O, O, O, O, O, O, W, O, O, O, W, W],
+    [W, W, O, W, W, W, O, W, O, W, O, W, O, W, W],
     [W, W, O, W, W, W, O, W, O, W, O, W, O, E, W],
     [W, W, O, W, O, O, O, W, W, O, O, W, W, W, W],
     [W, W, W, W, O, W, O, W, O, O, W, W, O, W, W],
     [W, W, O, P, O, W, O, O, O, W, W, W, O, W, W],
     [W, W, W, W, W, W, W, W, W, W, W, O, O, W, W],
 ]
+maze4 = [[W, W, W ,W ,W ,W ,W ,W ,W, W, E, W, W ,W ,W],
+        [W, W, W, O, O, W, W, W, O, W, D, W, W, W, W,],
+        [W, O, O, O ,O ,W ,O ,W ,O, W, O, O, O ,W ,W,],
+        [W, W, O ,W ,W ,W ,O ,W ,W ,W, O ,W ,O ,W ,W,],
+        [W, O, P ,O, O, O ,W ,W ,W ,O, O ,W ,O ,O ,W,],
+        [W, O, W, W, W, W, O, W, W ,O, W ,O ,O ,O ,W,],
+        [W, O ,O ,O, O ,O ,O ,O ,O ,O ,W, W ,W ,W ,W,],
+        [W, O, O ,W ,W ,W ,W ,W ,W ,O ,W ,W ,O ,O ,W,],
+        [W, O, O ,W ,O ,O ,O ,W ,W ,O ,O ,O ,O ,W ,W,],
+        [W, W, W, W ,W ,W ,W ,W ,W ,W ,W ,W ,W ,W ,W ],]
 
-maze4 = [
-    [W, W, W, W, W, W, W, W, W, W, E, W, W, W, W],
-    [
-        W,
-        W,
-        W,
-        O,
-        O,
-        W,
-        W,
-        W,
-        O,
-        W,
-        O,
-        W,
-        W,
-        W,
-        W,
-    ],
-    [
-        W,
-        O,
-        O,
-        O,
-        O,
-        W,
-        O,
-        W,
-        O,
-        W,
-        O,
-        O,
-        O,
-        W,
-        W,
-    ],
-    [
-        W,
-        W,
-        O,
-        W,
-        W,
-        W,
-        O,
-        W,
-        W,
-        W,
-        O,
-        W,
-        O,
-        W,
-        W,
-    ],
-    [
-        W,
-        O,
-        P,
-        O,
-        O,
-        O,
-        W,
-        W,
-        W,
-        O,
-        O,
-        W,
-        O,
-        O,
-        W,
-    ],
-    [
-        W,
-        O,
-        W,
-        W,
-        W,
-        W,
-        O,
-        W,
-        W,
-        O,
-        W,
-        O,
-        O,
-        O,
-        W,
-    ],
-    [
-        W,
-        O,
-        O,
-        O,
-        O,
-        O,
-        O,
-        O,
-        O,
-        O,
-        W,
-        W,
-        W,
-        W,
-        W,
-    ],
-    [
-        W,
-        O,
-        O,
-        W,
-        W,
-        W,
-        W,
-        W,
-        W,
-        O,
-        W,
-        W,
-        O,
-        O,
-        W,
-    ],
-    [
-        W,
-        O,
-        O,
-        W,
-        O,
-        O,
-        O,
-        W,
-        W,
-        O,
-        O,
-        O,
-        O,
-        W,
-        W,
-    ],
-    [W, W, W, W, W, W, W, W, W, W, W, W, W, W, W],
-]
-
+maze42 = [[W, W, W ,W ,W ,W ,W ,W ,W, W, E, W, W ,W ,W],
+        [W, W, W, O, O, W, W, W, O, W, O, W, W, W, W,],
+        [W, O, O, O ,O ,W ,O ,W ,O, W, O, O, O ,W ,W,],
+        [W, W, O ,W ,W ,W ,O ,W ,W ,W, O ,W ,O ,W ,W,],
+        [W, O, P ,O, O, O ,W ,W ,W ,O, O ,W ,O ,O ,W,],
+        [W, O, W, W, W, W, O, W, W ,O, W ,O ,O ,O ,W,],
+        [W, O ,O ,O, O ,O ,O ,O ,O ,O ,W, W ,W ,W ,W,],
+        [W, O, O ,W ,W ,W ,W ,W ,W ,O ,W ,W ,O ,O ,W,],
+        [W, O, O ,W ,O ,O ,O ,W ,W ,O ,O ,O ,O ,W ,W,],
+        [W, W, W, W ,W ,W ,W ,W ,W ,W ,W ,W ,W ,W ,W ],]
 
 # Draw the maze, # I had to expand this code so that the player can be spawned
 # to a different shape to the rest of the blocks. The player is now a circle and everything else are rectangles
 def renderMaze(maze):
     for y, row in enumerate(maze):
-        for x, block in enumerate(row):
-            if isinstance(block, Wall):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
-            elif isinstance(block, Exit):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
-            elif isinstance(block, Key):
-                pygame.draw.rect(
-                    gameScreen,
-                    block.color,
-                    pygame.Rect(x * block_size, y * block_size, block_size, block_size),
-                )
+      for x, block in enumerate(row):
+       pygame.draw.rect(
+        gameScreen, block.color,
+        pygame.Rect(x * block_size, y * block_size, block_size, block_size))
+#define Key change
+def keyChange1():
+  textDisplay("The door has now been unlocked!") 
+  time.sleep(2)
+  gameScreen.fill(white) 
+  renderMaze(maze32)
+def keyChange2():
+  textDisplay("The door has now been unlocked!") 
+  time.sleep(2)
+  gameScreen.fill(white) 
+  renderMaze(maze42)
+#define gameEndings
+def gameEnd1():
+  textDisplay("Get ready for the next level in 5 seconds!")
+  time.sleep(5)
+  gameScreen.fill(white) 
+  renderMaze(maze2)
+#This is for the hard mode maze, it will open maze 4 instead of maze 2
+def gameEnd2():
+    textDisplay("You have beaten Easy mode! Hard mode will now commence")
+    time.sleep(5)
+    gameScreen.fill(white)
+    renderMaze(maze3)
+#this should occur for the final level so for maze 2 and maze 4. The game exits
+def gameEnding():
+    textDisplay("You have beaten the game! The game will now exit")
+    time.sleep(5)
+    pygame.quit()
+    sys.exit()
 
 
-# Player Position in each maze. Will render a movable circle
-if renderMaze(maze1) == renderMaze(maze1):
-    S = Player(blue, 10, 80, 80, 80, 80, 5)
-else:
-    pass
-if renderMaze(maze2) == renderMaze(maze2):
-    S = Player(blue, 10, 860, 80, 860, 90, 5)
-else:
-    pass
-if renderMaze(maze3) == renderMaze(maze3):
-    S = Player(blue, 10, 160, 80, 160, 80, 5)
-else:
-    pass
-if renderMaze(maze4) == renderMaze(maze4):
-    S = Player(blue, 10, 860, 300, 860, 300, 5)
-else:
-    pass
+current_maze = maze3
 
-
-# Main game loop
+if current_maze == maze1:
+    S = Player(blue,10,80,80,80,80,5)
+else:
+    pass
+if current_maze == maze2:
+    S = Player(blue,10,860,80,860,90,5)
+else:
+  pass
+if current_maze == maze3:
+  S = Player(blue,10,160,80,160,80,5)
+else:
+  pass
+if current_maze == maze4:
+  S = Player(blue,10,860,300,860,300,5)
+else:
+  pass
+  
+#Main game loop
 running = True
 while running:
     clock.tick(60)
@@ -353,22 +255,39 @@ while running:
     new_block_x = int(S.x_position) // block_size
     new_block_y = int(S.y_position) // block_size
 
-    if isinstance(maze4[new_block_y][new_block_x], Wall):
+    if isinstance(current_maze[new_block_y][new_block_x], Wall):
         # If a wall is detected, restore the old position
         S.x_position = old_x
         S.y_position = old_y
+  
+  #check for the key in maze 3 and maze 4
+    if isinstance(current_maze[new_block_y][new_block_x], Key):
+      if current_maze == maze3:
+        keyChange1()
+        current_maze = maze32
+      elif current_maze == maze4:
+         keyChange2()
+         current_maze = maze42
 
     # If the player reaches the exit
-    goal = abs(S.x_position - E.x_position) + abs(S.y_position - E.y_position)
-    if goal <= S.radius:
-        print("Congratulations! You have beaten the game")
-        textDisplay("Congratulations! You have beaten the game")
-        time.sleep(1)
-        pygame.quit()
-        sys.exit()
+    if isinstance(current_maze[new_block_y][new_block_x], Exit):
+        if current_maze == maze1:
+            gameEnd1()
+            current_maze = maze2
+            S.x_position, S.y_position = 860, 80  # Move player to starting position of maze2
+        elif current_maze == maze2:
+            gameEnd2()
+            current_maze =  maze3
+            S.x_position, S.y_position = 160, 80  # Move player to starting position of maze2
+        elif current_maze == maze32:
+            gameEnd1()
+            current_maze = maze4
+            S.x_position, S.y_position = 860, 300  # Move player to starting position of maze4
+        elif current_maze == maze42:
+            gameEnding()
 
     gameScreen.fill(white)  # Clears the screen.
-    renderMaze(maze4)
+    renderMaze(current_maze)
     pygame.draw.circle(
         gameScreen, S.color, (int(S.x_position), int(S.y_position)), 10, 0
     )  # This makes the player visibly move
