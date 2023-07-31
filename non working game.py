@@ -31,13 +31,13 @@ purple = (128, 0, 128)
 
 # Displaying messages for completing the levels etc
 def textDisplay(text):
-  renderFont = pygame.font.Font("arial.ttf", 50)
+  renderFont = pygame.font.Font("freesansbold.ttf", 50)
   textsc = renderFont.render(text, True, purple)
   surface, rect = textsc, textsc.get_rect()
   rect.center = ((width / 2), (height / 2))
   gameScreen.blit(surface, rect)
   pygame.display.update()
-  clock.sleep(1)
+  
 
 
 # Define classes
@@ -167,13 +167,13 @@ def renderMaze(maze):
                 
 #define gameEndings
 def gameEnd1():
-  textDisplay("You have beaten the first level! Get ready for level 2 in 5 seconds!")
-  clock(0)
+  textDisplay("Get ready for level 2 in 5 seconds!")
+  clock(5)
   gameScreen.fill(white) 
   renderMaze(maze2)
 def gameEnd2():
-    textDisplay("You have beaten the first level! Get ready for level 2 in 5 seconds")
-    clock(0)
+    textDisplay("Get ready for level 2 in 5 seconds")
+    clock(5)
     gameScreen.fill(white)
     renderMaze(maze4)
 def gameEnding():
@@ -181,7 +181,7 @@ def gameEnding():
     running = False
 
 
-current_maze = maze4
+current_maze = maze1
 
 if current_maze == maze1:
     S = Player(blue,10,80,80,80,80,5)
