@@ -16,23 +16,23 @@ clock = pygame.time.Clock()
 vel = 5
 # Create the screen
 gameScreen = pygame.display.set_mode((width, height))
-gameScreen.fill((0, 0, 0))  # black background
+gameScreen.fill((128, 0, 128))  # purple background
 pygame.display.set_caption("Welcome to the maze")
 
 # Color library
-white = (255, 255, 255)
+white = (245, 245, 220)
 black = (0, 0, 0)
 green = (0, 255, 0)
 red = (255, 0, 0)
-blue = (0, 0, 255)
+blue = (173, 216, 230)
 orange = (255, 165, 0)
 purple = (128, 0, 128)
-
+pink = (255,192,203)
 
 # Displaying messages for completing the levels etc
 def textDisplay(text):
   renderFont = pygame.font.Font("freesansbold.ttf", 30)
-  textsc = renderFont.render(text, True, blue)
+  textsc = renderFont.render(text, True, black)
   surface, rect = textsc, textsc.get_rect()
   rect.center = ((width / 2), (height / 2))
   gameScreen.blit(surface, rect)
@@ -93,12 +93,12 @@ class Key(
 
 
 # Create instances
-W = Wall(black, 0, 0)
+W = Wall(blue, 0, 0)
 E = Exit(green, 0, 0)
-S = Player(blue, 10, 80, 80, 80, 80, 5)
+S = Player(red, 10, 80, 80, 80, 80, 5)
 O = Area(white, 0, 0)
 P = Key(orange, 0, 0)
-D = Door(purple,0,0)
+D = Door(black,0,0)
 #
 
 
@@ -218,19 +218,19 @@ def gameEnding():
 current_maze = maze1
 
 if current_maze == maze1:
-    S = Player(blue,10,80,80,80,80,5)
+    S = Player(red,10,80,80,80,80,5)
 else:
     pass
 if current_maze == maze2:
-    S = Player(blue,10,860,80,860,90,5)
+    S = Player(red,10,860,80,860,90,5)
 else:
   pass
 if current_maze == maze3:
-  S = Player(blue,10,160,80,160,80,5)
+  S = Player(red,10,160,80,160,80,5)
 else:
   pass
 if current_maze == maze4:
-  S = Player(blue,10,860,300,860,300,5)
+  S = Player(red,10,860,300,860,300,5)
 else:
   pass
   
