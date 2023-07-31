@@ -180,8 +180,27 @@ def gameEnding():
     textDisplay("You have beaten the game! Congratulations")
     running = False
 
-# Player Position in each maze. Will render a movable circle
-# Main game loop
+
+current_maze = maze4
+
+if current_maze == maze1:
+    S = Player(blue,10,80,80,80,80,5)
+else:
+    pass
+if current_maze == maze2:
+    S = Player(blue,10,860,80,860,90,5)
+else:
+  pass
+if current_maze == maze3:
+  S = Player(blue,10,160,80,160,80,5)
+else:
+  pass
+if current_maze == maze4:
+  S = Player(blue,10,860,300,860,300,5)
+else:
+  pass
+
+#Main game loop
 running = True
 while running:
     clock.tick(60)
@@ -201,40 +220,30 @@ while running:
     # Check for collisions with walls
     new_block_x = int(S.x_position) // block_size
     new_block_y = int(S.y_position) // block_size
-#for each maze
-    if isinstance(maze1[new_block_y][new_block_x], Wall):
-        # If a wall is detected, restore the old position
-        S.x_position = old_x
-        S.y_position = old_y
-    if isinstance(maze2[new_block_y][new_block_x], Wall):
-        # If a wall is detected, restore the old position
-        S.x_position = old_x
-        S.y_position = old_y
-    if isinstance(maze3[new_block_y][new_block_x], Wall):
-        # If a wall is detected, restore the old position
-        S.x_position = old_x
-        S.y_position = old_y
-    if isinstance(maze4[new_block_y][new_block_x], Wall):
-        # If a wall is detected, restore the old position
-        S.x_position = old_x
-        S.y_position = old_y
-# for reaching the exit
-    if isinstance(maze1[new_block_y][new_block_x], Exit):
-        gameEnd1()
-    if isinstance(maze2[new_block_y][new_block_x], Exit): 
-        gameEnding()
-    if isinstance(maze3[new_block_y][new_block_x], Exit):
-        gameEnd2()
-    if isinstance(maze4[new_block_y][new_block_x], Exit):
-        gameEnding()
-        # If a wall is detected, restore the old position
-  
 
+    if isinstance(current_maze[new_block_y][new_block_x], Wall):
+        # If a wall is detected, restore the old position
+        S.x_position = old_x
+        S.y_position = old_y
+
+    # If the player reaches the exit
+    if isinstance(current_maze[new_block_y][new_block_x], Exit):
+        if current_maze == maze1:
+            gameEnd1()
+            current_maze = maze2
+            S.x_position, S.y_position = 860, 80  # Move player to starting position of maze2
+        elif current_maze == maze2:
+            gameEnd2()
+            current_maze = maze4
+            S.x_position, S.y_position = 860, 300  # Move player to starting position of maze4
+        elif current_maze == maze4:
+            gameEnding()
 
     gameScreen.fill(white)  # Clears the screen.
-    renderMaze(maze4)
+    renderMaze(current_maze)
     pygame.draw.circle(
-        gameScreen, S.color, (int(S.x_position), int(S.y_position)), 10, 0)  # This makes the player visibly move
+        gameScreen, S.color, (int(S.x_position), int(S.y_position)), 10, 0
+    )  # This makes the player visibly move
     pygame.display.flip()  # Update the display.
 
 pygame.quit()
