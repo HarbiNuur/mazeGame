@@ -75,7 +75,6 @@ class Door(Wall):
     def __init__(sef, color, x_position, y_position):
         super().__init__(color, x_position, y_position)
 
-
 class Exit(GameEntity):
     def __init__(self, color, x_position, y_position):
         super().__init__(color, x_position, y_position)
@@ -99,7 +98,7 @@ E = Exit(green, 0, 0)
 S = Player(blue, 10, 80, 80, 80, 80, 5)
 O = Area(white, 0, 0)
 P = Key(orange, 0, 0)
-
+D = Door(purple,0,0)
 #
 
 
@@ -137,7 +136,7 @@ maze3 = [
     [W, W, O, W, W, W, W, W, O, O, W, W, O, W, W],
     [W, O, O, O, O, O, O, O, O, W, O, O, O, W, W],
     [W, W, O, W, W, W, O, W, O, W, O, W, O, W, W],
-    [W, W, O, W, W, W, O, W, O, W, O, W, O, E, W],
+    [W, W, O, W, W, W, O, W, O, W, O, W, D, E, W],
     [W, W, O, W, O, O, O, W, W, O, O, W, W, W, W],
     [W, W, W, W, O, W, O, W, O, O, W, W, O, W, W],
     [W, W, O, P, O, W, O, O, O, W, W, W, O, W, W],
@@ -164,18 +163,24 @@ def renderMaze(maze):
        pygame.draw.rect(
         gameScreen, block.color,
         pygame.Rect(x * block_size, y * block_size, block_size, block_size))
-                
+#define Key change
+def keyChange():
+    textDisplay("The door has now been unlocked!") 
+    time.sleep(2) 
+  
 #define gameEndings
 def gameEnd1():
-  textDisplay("Get ready for level 2 in 5 seconds!")
+  textDisplay("Get ready for the next level in 5 seconds!")
   time.sleep(5)
   gameScreen.fill(white) 
   renderMaze(maze2)
+#This is for the hard mode maze, it will open maze 4 instead of maze 2
 def gameEnd2():
-    textDisplay("Get ready for level 2 in 5 seconds")
+    textDisplay("You have beaten Easy mode! Hard mode will now commence")
     time.sleep(5)
     gameScreen.fill(white)
-    renderMaze(maze4)
+    renderMaze(maze3)
+#this should occur for the final level so for maze 2 and maze 4. The game exits
 def gameEnding():
     textDisplay("You have beaten the game! The game will now exit")
     time.sleep(5)
@@ -183,7 +188,7 @@ def gameEnding():
     sys.exit()
 
 
-current_maze = maze1
+current_maze = maze2
 
 if current_maze == maze1:
     S = Player(blue,10,80,80,80,80,5)
@@ -201,7 +206,7 @@ if current_maze == maze4:
   S = Player(blue,10,860,300,860,300,5)
 else:
   pass
-
+  
 #Main game loop
 running = True
 while running:
@@ -227,6 +232,11 @@ while running:
         # If a wall is detected, restore the old position
         S.x_position = old_x
         S.y_position = old_y
+  
+  #check for the key in maze 3 and maze 4
+    if isinstance(current_maze[new_block_y][new_block_x], Key):
+      keyChange()
+      Door = Area
 
     # If the player reaches the exit
     if isinstance(current_maze[new_block_y][new_block_x], Exit):
@@ -235,9 +245,11 @@ while running:
             current_maze = maze2
             S.x_position, S.y_position = 860, 80  # Move player to starting position of maze2
         elif current_maze == maze2:
-            gameEnding()
-        elif current_maze == maze3:
             gameEnd2()
+            current_maze =  maze3
+            S.x_position, S.y_position = 160, 80  # Move player to starting position of maze2
+        elif current_maze == maze3:
+            gameEnd1()
             current_maze = maze4
             S.x_position, S.y_position = 860, 300  # Move player to starting position of maze4
         elif current_maze == maze4:
