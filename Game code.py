@@ -1,5 +1,7 @@
 import pygame
 import sys
+import time
+
 
 # Initialise Pygame
 pygame.init()
@@ -26,6 +28,15 @@ blue = (0, 0, 255)
 orange = (255,165,0)
 purple = (128,0,128)
 
+#Displaying messages for completing the levels etc
+def textDisplay(text):
+    renderFont = pygame.font.Font('arial.ttf', 50)
+    textsc = renderFont.render(text, True,purple)
+    surface, rect = textsc, textsc.get_rect()
+    rect.center = ((width/2),(height/2))
+    gameScreen.blit(surface, rect)
+    pygame.display.update()
+    clock.sleep(1)
 # Define classes
 
 
@@ -36,6 +47,9 @@ class GameEntity:
     self.x_position = x_position
     self.y_position = y_position
 
+
+
+  
 #want to make the player a different shape than the area so I made it a circle, I added x and y position to the player class
 class Player(GameEntity):
 
@@ -45,7 +59,10 @@ class Player(GameEntity):
     self.oldx_position = oldx_position
     self.oldy_position = oldy_position
     self.vel = vel
-    
+def update_position(self,oldx_position,oldy_position):
+  time.sleep(0.1)
+  self.x_position = self.oldx_position
+  self.y_position = self.oldy_position
 
 
 class Wall(GameEntity):
@@ -166,6 +183,7 @@ else:
   pass
 
 
+
 # Main game loop
 running = True
 while running:
@@ -178,19 +196,14 @@ while running:
 
     keys = pygame.key.get_pressed()
     #the initial call of the old x and y position is to save this to memory until we encounter a wall
-    S.oldx_position = S.x_position
-    S.oldy_position = S.y_position
     S.x_position += (keys[pygame.K_d] - keys[pygame.K_a]) * vel
     S.y_position += (keys[pygame.K_s] - keys[pygame.K_w]) * vel
+    
     #When the player hits the Wall this doesn't work yet either
-    distance = abs(S.x_position - W.x_position) + abs(S.y_position - W.y_position)
-    if distance <= S.radius:
-        S.x_position = S.oldx_position
-        S.y_position = S.oldy_position
+
+
      #If the player reaches the exit this doesn't work yet
-    goal = abs(S.x_position - E.x_position) + abs(S.y_position - E.y_position)
-    if goal <= S.radius:
-      print("Congratulations! You have beat the game")
+
   #When the player reaches a key
 
   #When the player reaches a door
